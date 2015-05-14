@@ -2,7 +2,6 @@ package rangeheader
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -11,10 +10,7 @@ import (
 func Parse(contentRange string, r *Range) error {
 	tokens := tokenize(contentRange, ";")
 
-	fmt.Println(tokens)
-
 	desc, err := parseRangeDescriptor(tokens[0])
-	fmt.Println(desc)
 	if err != nil {
 		return err
 	}
