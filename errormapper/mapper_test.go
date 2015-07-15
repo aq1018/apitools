@@ -14,16 +14,16 @@ func (s *mapperTestSuite) TestMappError() {
 		return nil
 	})
 
-	s.Nil(s.Mapper.MapError(testErr))
+	s.Nil(s.Mapper.MapError(errMockError))
 
 	s.Mapper.Register(func(err error) (message ErrorMessage) {
-		if err == testErr {
-			message = &errorMessage{500, testErr.Error()}
+		if err == errMockError {
+			message = &errorMessage{500, errMockError.Error()}
 		}
 		return
 	})
 
-	m := s.Mapper.MapError(testErr)
+	m := s.Mapper.MapError(errMockError)
 
 	message, ok := m.(*errorMessage)
 
@@ -34,8 +34,8 @@ func (s *mapperTestSuite) TestMappError() {
 
 func (s *mapperTestSuite) TestMiddleware() {
 	s.Mapper.Register(func(err error) (message ErrorMessage) {
-		if err == testErr {
-			message = &errorMessage{500, testErr.Error()}
+		if err == errMockError {
+			message = &errorMessage{500, errMockError.Error()}
 		}
 		return
 	})
@@ -46,7 +46,7 @@ func (s *mapperTestSuite) TestMiddleware() {
 			return nil
 		}
 
-		return testErr
+		return errMockError
 	})
 
 	// request that should not generate eror
@@ -94,5 +94,5 @@ type (
 )
 
 var (
-	testErr = errors.New("test")
+	errMockError = errors.New("test")
 )
