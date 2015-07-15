@@ -48,23 +48,21 @@ func (rt *rangeDescriptor) validate() error {
 func (rt *rangeDescriptor) value() (value string) {
 	if rt.start != "" {
 		return rt.start
-	} else {
-		return rt.end
 	}
+	return rt.end
 }
 
 func (rt *rangeDescriptor) operator() RangeOperator {
 	if rt.start != "" {
 		if rt.startExclusive {
 			return RangeOperatorGreaterThan
-		} else {
-			return RangeOperatorGreaterOrEqualTo
 		}
-	} else {
-		if rt.endExclusive {
-			return RangeOperatorLessThan
-		} else {
-			return RangeOperatorLessOrEqualTo
-		}
+		return RangeOperatorGreaterOrEqualTo
 	}
+
+	if rt.endExclusive {
+		return RangeOperatorLessThan
+	}
+
+	return RangeOperatorLessOrEqualTo
 }

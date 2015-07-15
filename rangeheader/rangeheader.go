@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+// Parse parses Content-Range string and stores the parsed results
+// inside the Range object
 func Parse(contentRange string, r *Range) error {
 	tokens := tokenize(contentRange, ";")
 
